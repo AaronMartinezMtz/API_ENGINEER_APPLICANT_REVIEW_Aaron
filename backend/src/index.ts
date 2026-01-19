@@ -10,17 +10,14 @@ import { connectDatabase } from './infrastructure/database/mongoose';
 // Importar repositorios
 import { TemperatureRepository } from './infrastructure/repositories/temperature_repository';
 import { HumidityRepository } from './infrastructure/repositories/humidity_repository';
-import { DataIoTRepository } from './infrastructure/repositories/data_IoT_repository';
 
 // Importar use cases
 import { TemperatureUseCases } from './application/usecases/temperature_use_cases';
 import { HumidityUseCases } from './application/usecases/humidity_use_cases';
-import { DataIoTUseCases } from './application/usecases/data_IoT_use_cases';
 
 // Importar rutas
 import { createTemperatureRoutes } from './presentation/routes/temperature_routes';
 import { createHumidityRoutes } from './presentation/routes/humidity_routes';
-import { createDataIoTRoutes } from './presentation/routes/data_IoT_routes';
 
 // Importar servicio de Socket
 import { SocketService } from './infrastructure/socket/SocketService';
@@ -48,17 +45,14 @@ app.use(express.json());
 // Dependency Injection
 const temperatureRepository = new TemperatureRepository();
 const humidityRepository = new HumidityRepository();
-const dataIoTRepository = new DataIoTRepository();
 
 const temperatureUseCases = new TemperatureUseCases(temperatureRepository);
 const humidityUseCases = new HumidityUseCases(humidityRepository);
-const dataIoTUseCases = new DataIoTUseCases(dataIoTRepository);
 
 // Socket Service
 const socketService = new SocketService(io, temperatureUseCases, humidityUseCases);
 
 // Rutas
-app.use('/api/data-iot', createDataIoTRoutes(dataIoTUseCases));
 app.use('/api/temperature', createTemperatureRoutes(temperatureUseCases));
 app.use('/api/humidity', createHumidityRoutes(humidityUseCases));
 

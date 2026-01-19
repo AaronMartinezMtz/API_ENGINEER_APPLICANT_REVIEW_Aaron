@@ -13,7 +13,7 @@ const HUM_LIMITS = [30, 70];
 socket = socket("http://" + HOSTNAME + ":" + PORT);
 
 socket.on('connect_error', (error) => {
-    console.log("socket error", error);
+    console.log("socket IoT:", "No se pudo conectar al servidor");
 });
 
 socket.on('connect', function() {

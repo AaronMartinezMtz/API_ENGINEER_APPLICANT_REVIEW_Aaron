@@ -1,7 +1,6 @@
 import { Server as SocketIOServer, Socket } from 'socket.io';
 import { TemperatureUseCases } from '../../application/usecases/temperature_use_cases';
 import { HumidityUseCases } from '../../application/usecases/humidity_use_cases';
-import { DataIoTUseCases } from '../../application/usecases/data_IoT_use_cases';
 
 export class SocketService {
   constructor(
