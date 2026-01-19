@@ -1,4 +1,5 @@
 // Importar dependencias
+require('dotenv').config();
 const express = require('express');
 const http = require('http');
 const { Server } = require('socket.io');
@@ -13,6 +14,7 @@ const io = new Server(server, {
 });
 
 const PORT = process.env.PORT || 8080;
+const HOSTNAME = process.env.HOSTNAME || "localhost";
 
 app.use(express.json());
 

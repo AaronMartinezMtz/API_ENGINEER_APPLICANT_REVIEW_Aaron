@@ -1,6 +1,7 @@
+require('dotenv').config();
 let socket = require('socket.io-client');
-const HOSTNAME = "";
-const PORT = "";
+const HOSTNAME = process.env.HOSTNAME
+const PORT = process.env.PORT 
 const TOPIC = "iot/sensors";
 
 let LAST_HUM = 50;
@@ -30,15 +31,15 @@ function getDataAndSend() {
     socket.emit('iot/sensors', {
         sensor: "TEMP",
         value: generateData("TEMP")
-    });
+    });    
 }
 
-function generateData(type) {
+function generateData(type) {        
     let sig = Math.random() > .5 ? 1 : -1;
     let value = sig * parseFloat(Math.random().toFixed(1));
     if (type == "TEMP") {
         if (LAST_TEMP + value >= TEMP_LIMITS[0] && LAST_TEMP + value <= TEMP_LIMITS[1]) LAST_TEMP += value;
-        else LAST_TEMP -= value;
+        else LAST_TEMP -= value;    
         return LAST_TEMP;
     }
     if (type == "HUM") {
